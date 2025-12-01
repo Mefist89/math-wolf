@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Sparkles } from 'lucide-react';
 import { useWolfMathGame } from './WolfMathGameState';
 
@@ -41,8 +41,11 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
   // State to track if spawning is paused
   const [spawningPaused, setSpawningPaused] = useState(true);
   
-  // Flag to track if initial items have been spawned
-  const [initialSpawned, setInitialSpawned] = useState(false);
+  // Ref to track if initial spawn has occurred to prevent multiple executions
+  const initialSpawnRef = useRef(false);
+  
+  // Memoize the initial spawn state
+  const initialSpawned = initialSpawnRef.current;
 
   // Effect to generate questions when level or question changes
  useEffect(() => {
@@ -71,44 +74,71 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
     }
  }, [currentLevel]);
 
-  // Effect for spawning falling items - only initially spawn 5 items
-  useEffect(() => {
-    if (levels[currentLevel]?.operation === 'falling' && fallingItems.length === 0 && !initialSpawned) {
-      // Initially spawn 5 items
-      const newItems: typeof fallingItems = [];
-      for (let i = 0; i < 5; i++) {
-        const operation = Math.random() > 0.5 ? '+' : '-';
-        let a, b, answer;
-        
-        if (operation === '+') {
-          a = Math.floor(Math.random() * 10);
-          b = Math.floor(Math.random() * (10 - a + 1));
-          answer = a + b;
-        } else {
-          a = Math.floor(Math.random() * 11);
-          b = Math.floor(Math.random() * (a + 1));
-          answer = a - b;
-        }
+  // Effect for spawning falling items with specific timing
+ useEffect(() => {
+   if (levels[currentLevel]?.operation === 'falling' && fallingItems.length === 0 && !initialSpawnRef.current) {
+     // Mark that initial spawning has started to prevent multiple executions
+     initialSpawnRef.current = true;
+     
+     // Function to create a new meat item
+     const createNewItem = () => {
+       const operation = Math.random() > 0.5 ? '+' : '-';
+       let a, b, answer;
+       
+       if (operation === '+') {
+         a = Math.floor(Math.random() * 10);
+         b = Math.floor(Math.random() * (10 - a + 1));
+         answer = a + b;
+       } else {
+         a = Math.floor(Math.random() * 11);
+         b = Math.floor(Math.random() * (a + 1));
+         answer = a - b;
+       }
 
-        const newItem = {
-          id: Date.now() + Math.random() + i,
-          question: `${a} ${operation} ${b}`,
-          answer: answer,
-          position: Math.random() * 80,
-          progress: 0
-        };
+       return {
+         id: Date.now() + Math.random(),
+         question: `${a} ${operation} ${b}`,
+         answer: answer,
+         position: Math.random() * 80,
+         progress: 0
+       };
+     };
 
-        newItems.push(newItem);
-      }
-      
-      setFallingItems(prev => [...prev, ...newItems]);
-      setInitialSpawned(true);
-    }
-  }, [currentLevel, fallingItems.length, initialSpawned]);
+     // Spawn meat 1 immediately
+     setTimeout(() => {
+       const newItem = createNewItem();
+       setFallingItems(prev => [...prev, newItem]);
+     }, 0);
+
+     // Spawn meat 2 after 2 seconds
+     setTimeout(() => {
+       const newItem = createNewItem();
+       setFallingItems(prev => [...prev, newItem]);
+     }, 2000);
+
+     // Spawn meat 3 after 1 second (3 seconds total)
+     setTimeout(() => {
+       const newItem = createNewItem();
+       setFallingItems(prev => [...prev, newItem]);
+     }, 3000);
+
+     // Spawn meat 4 after 2 seconds (5 seconds total)
+     setTimeout(() => {
+       const newItem = createNewItem();
+       setFallingItems(prev => [...prev, newItem]);
+     }, 5000);
+
+     // Spawn meat 5 after 1 second (6 seconds total)
+     setTimeout(() => {
+       const newItem = createNewItem();
+       setFallingItems(prev => [...prev, newItem]);
+     }, 6000);
+   }
+ }, [currentLevel, fallingItems.length]); // Remove initialSpawned from dependencies
 
   // Separate effect for continuous spawning that can be paused
   useEffect(() => {
-    if (levels[currentLevel]?.operation === 'falling' && !spawningPaused && initialSpawned) {
+    if (levels[currentLevel]?.operation === 'falling' && !spawningPaused && initialSpawnRef.current) {
       const spawnInterval = setInterval(() => {
         const operation = Math.random() > 0.5 ? '+' : '-';
         let a, b, answer;
@@ -136,7 +166,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
       
       return () => clearInterval(spawnInterval);
     }
-  }, [currentLevel, spawningPaused, initialSpawned]);
+  }, [currentLevel, spawningPaused]);
 
   // Effect for moving falling items
   useEffect(() => {
