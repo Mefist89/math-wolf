@@ -34,7 +34,8 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
     gameTime,
     setGameTime,
     handleFallingAnswer,
-    score
+    score,
+    returnToMenu
   } = useWolfMathGame();
 
   // Effect to generate questions when level or question changes
@@ -230,6 +231,18 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
             ))}
           </div>
         </div>
+        <div className="mt-4 text-center">
+          <button
+            onClick={() => {
+              // Reset game state and return to menu
+              returnToMenu();
+              setScreen('menu');
+            }}
+            className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-full text-sm font-bold transition inline-flex items-center"
+          >
+            Meniu
+          </button>
+        </div>
       </div>
     );
   }
@@ -311,10 +324,20 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
         </div>
 
         <div className="text-center">
-          <div className="inline-block bg-white rounded-full px-6 py-3 shadow-lg">
+          <div className="inline-flex items-center gap-3 bg-white rounded-full px-6 py-3 shadow-lg">
             <span className="text-lg font-bold text-purple-700">
               Scor: {score} / {currentLevel * 3 + currentQuestion + 1}
             </span>
+            <button
+              onClick={() => {
+                // Reset game state and return to menu
+                returnToMenu();
+                setScreen('menu');
+              }}
+              className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-full text-sm font-bold transition"
+            >
+              Meniu
+            </button>
           </div>
         </div>
       </div>

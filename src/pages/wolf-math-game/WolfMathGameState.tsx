@@ -298,7 +298,18 @@ export const WolfMathGameProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const returnToMenu = () => {
-    // This will be handled by parent component
+    // Reset game state
+    setCurrentLevel(0);
+    setCurrentQuestion(0);
+    setScore(0);
+    setCurrentLevelScore(0);
+    setSelectedAnswer(null);
+    setShowFeedback(false);
+    setFallingItems([]);
+    setFallingScore(0);
+    setFallingMisses(0);
+    setGameTime(0);
+    setQuestion(null);
   };
 
   const value = {
