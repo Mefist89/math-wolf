@@ -22,7 +22,7 @@ const WolfMathGameComplete: React.FC<WolfMathGameCompleteProps> = ({ setScreen }
     <div className="min-h-screen bg-gradient-to-b from-blue-400 to-purple-500 flex items-center justify-center p-4">
       <div className="bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full text-center">
         <div className="mb-6">
-          <div className="text-8xl mb-4">🐺</div>
+          <img src="wolf1.png" alt="Wolf" className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-4" />
           <Trophy className="w-20 h-20 mx-auto text-yellow-500 mb-4" />
         </div>
         <h1 className="text-4xl font-bold text-purple-600 mb-4">Felicitări!</h1>
