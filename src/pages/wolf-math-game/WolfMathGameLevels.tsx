@@ -31,7 +31,7 @@ const WolfMathGameLevels: React.FC<WolfMathGameLevelsProps> = ({ setScreen }) =>
               <button
                 key={idx}
                 onClick={() => handleLevelSelect(idx)}
-                className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-2xl hover:from-purple-20 hover:to-pink-200 transition transform hover:scale-105 text-left shadow-lg"
+                className="bg-gradient-to-r from-purple-100 to-pink-100 p-6 rounded-2xl hover:from-purple-200 hover:to-pink-200 transition transform hover:scale-105 text-left shadow-lg"
               >
                 <div className="flex items-center gap-4 mb-3">
                   <div className="text-5xl">{level.icon}</div>
@@ -48,7 +48,7 @@ const WolfMathGameLevels: React.FC<WolfMathGameLevelsProps> = ({ setScreen }) =>
                         key={i}
                         className={`w-6 h-6 ${
                           i < levelScores[idx]
-                            ? 'text-yellow-400 fill-yellow-40'
+                            ? 'text-yellow-400 fill-yellow-400'
                             : 'text-gray-300'
                         }`}
                       />

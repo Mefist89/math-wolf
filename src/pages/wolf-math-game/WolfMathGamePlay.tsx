@@ -298,7 +298,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
                 disabled={showFeedback}
                 className={`
                   text-3xl font-bold py-8 rounded-2xl transition-all transform hover:scale-105
-                  ${!showFeedback ? 'bg-purple-100 hover:bg-purple-20 text-purple-700' : ''}
+                  ${!showFeedback ? 'bg-purple-100 hover:bg-purple-200 text-purple-700' : ''}
                   ${showFeedback && option === question?.correctAnswer ? 'bg-green-500 text-white' : ''}
                   ${showFeedback && option === selectedAnswer && option !== question?.correctAnswer ? 'bg-red-500 text-white' : ''}
                   ${showFeedback && option !== question?.correctAnswer && option !== selectedAnswer ? 'bg-gray-200 text-gray-500' : ''}

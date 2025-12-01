@@ -53,7 +53,7 @@ const WolfMathGameHowTo: React.FC<WolfMathGameHowToProps> = ({ setScreen }) => {
 
         <button
           onClick={handleReturnToMenu}
-          className="w-full mt-8 bg-orange-500 text-white px-6 py-4 rounded-2xl text-xl font-bold hover:bg-orange-60 transition"
+          className="w-full mt-8 bg-orange-500 text-white px-6 py-4 rounded-2xl text-xl font-bold hover:bg-orange-600 transition"
         >
           Înapoi la Meniu
         </button>

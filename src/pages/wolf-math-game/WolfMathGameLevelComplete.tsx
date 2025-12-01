@@ -69,7 +69,7 @@ const WolfMathGameLevelComplete: React.FC<WolfMathGameLevelCompleteProps> = ({
                 key={i} 
                 className={`w-12 h-12 ${
                   i < levelScore 
-                    ? 'text-yellow-400 fill-yellow-40' 
+                    ? 'text-yellow-400 fill-yellow-400'
                     : 'text-gray-300'
                 }`} 
               />
@@ -83,7 +83,7 @@ const WolfMathGameLevelComplete: React.FC<WolfMathGameLevelCompleteProps> = ({
           {currentLevel < levels.length - 1 ? (
             <button
               onClick={handleNextLevel}
-              className="w-full bg-green-60 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-green-700 transition flex items-center justify-center gap-2"
+              className="w-full bg-green-600 text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-green-700 transition flex items-center justify-center gap-2"
             >
               Următorul Nivel
               <ArrowRight className="w-6 h-6" />

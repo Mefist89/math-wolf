@@ -42,7 +42,7 @@ const WolfMathGameComplete: React.FC<WolfMathGameCompleteProps> = ({ setScreen }
         <div className="space-y-3">
           <button
             onClick={handlePlayAgain}
-            className="w-full bg-purple-60 text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-purple-700 transition"
+            className="w-full bg-purple-600 text-white px-8 py-3 rounded-full text-lg font-bold hover:bg-purple-700 transition"
           >
             Joacă din nou
           </button>
