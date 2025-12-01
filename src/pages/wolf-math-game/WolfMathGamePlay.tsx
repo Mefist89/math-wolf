@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { useWolfMathGame } from './WolfMathGameState';
 
@@ -37,6 +37,12 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
     score,
     returnToMenu
   } = useWolfMathGame();
+  
+  // State to track if spawning is paused
+  const [spawningPaused, setSpawningPaused] = useState(true);
+  
+  // Flag to track if initial items have been spawned
+  const [initialSpawned, setInitialSpawned] = useState(false);
 
   // Effect to generate questions when level or question changes
  useEffect(() => {
@@ -65,9 +71,44 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
     }
  }, [currentLevel]);
 
-  // Effect for spawning falling items
- useEffect(() => {
-    if (levels[currentLevel]?.operation === 'falling') {
+  // Effect for spawning falling items - only initially spawn 5 items
+  useEffect(() => {
+    if (levels[currentLevel]?.operation === 'falling' && fallingItems.length === 0 && !initialSpawned) {
+      // Initially spawn 5 items
+      const newItems: typeof fallingItems = [];
+      for (let i = 0; i < 5; i++) {
+        const operation = Math.random() > 0.5 ? '+' : '-';
+        let a, b, answer;
+        
+        if (operation === '+') {
+          a = Math.floor(Math.random() * 10);
+          b = Math.floor(Math.random() * (10 - a + 1));
+          answer = a + b;
+        } else {
+          a = Math.floor(Math.random() * 11);
+          b = Math.floor(Math.random() * (a + 1));
+          answer = a - b;
+        }
+
+        const newItem = {
+          id: Date.now() + Math.random() + i,
+          question: `${a} ${operation} ${b}`,
+          answer: answer,
+          position: Math.random() * 80,
+          progress: 0
+        };
+
+        newItems.push(newItem);
+      }
+      
+      setFallingItems(prev => [...prev, ...newItems]);
+      setInitialSpawned(true);
+    }
+  }, [currentLevel, fallingItems.length, initialSpawned]);
+
+  // Separate effect for continuous spawning that can be paused
+  useEffect(() => {
+    if (levels[currentLevel]?.operation === 'falling' && !spawningPaused && initialSpawned) {
       const spawnInterval = setInterval(() => {
         const operation = Math.random() > 0.5 ? '+' : '-';
         let a, b, answer;
@@ -91,11 +132,11 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
         };
 
         setFallingItems(prev => [...prev, newItem]);
-      }, 200);
-
+      }, 2000); // Spawn every 2 seconds when not paused
+      
       return () => clearInterval(spawnInterval);
     }
-  }, [currentLevel]);
+  }, [currentLevel, spawningPaused, initialSpawned]);
 
   // Effect for moving falling items
   useEffect(() => {
@@ -104,11 +145,11 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
         setFallingItems(prev => {
           const updated = prev.map(item => ({
             ...item,
-            progress: item.progress + 2
+            progress: item.progress + 0.1
           }));
 
           const filtered = updated.filter(item => {
-            if (item.progress >= 10) {
+            if (item.progress >= 100) {
               setFallingMisses(m => m + 1);
               return false;
             }
@@ -219,10 +260,24 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
               <button
                 key={num}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent any default behavior
+                  
+                  // Check if any of the falling items match the number clicked
+                  let anyCorrect = false;
                   fallingItems.forEach(item => {
-                    handleFallingAnswer(num, item.id);
+                    if (item.answer === num) {
+                      if (handleFallingAnswer(num, item.id)) {
+                        anyCorrect = true;
+                      }
+                    }
                   });
+                  
+                  // If any correct answer was found, unpause spawning
+                  if (anyCorrect) {
+                    setSpawningPaused(false);
+                  }
+                  // If no correct answer was found, keep the current state
                 }}
                 className="bg-purple-500 hover:bg-purple-600 text-white text-2xl font-bold py-4 rounded-xl transition transform hover:scale-110 active:scale-95"
               >

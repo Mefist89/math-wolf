@@ -64,7 +64,7 @@ type WolfMathGameState = {
  };
   generateOptions: (correct: number | string, min: number, max: number) => (number | string)[];
   handleAnswer: (answer: any) => void;
- handleFallingAnswer: (userAnswer: number, itemId: string | number) => void;
+ handleFallingAnswer: (userAnswer: number, itemId: string | number) => boolean;
  nextLevel: () => void;
   startGame: () => void;
  startFromLevel: (levelIndex: number) => void;
@@ -257,7 +257,9 @@ export const WolfMathGameProvider = ({ children }: { children: ReactNode }) => {
     if (item && item.answer === userAnswer) {
       setFallingScore(prev => prev + 1);
       setFallingItems(prev => prev.filter(i => i.id !== itemId));
+      return true;
     }
+    return false;
   };
 
   const nextLevel = () => {
