@@ -17,7 +17,7 @@ const WolfMathGameCredits: React.FC<WolfMathGameCreditsProps> = ({ setScreen }) 
           Creatori
         </h2>
 
-        <img src="wolf1.png" alt="Wolf" className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6" />
+        <img src="/img/wolf1.png" alt="Wolf" className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6" />
 
         <div className="space-y-6 text-lg text-gray-70">
           <div className="bg-purple-50 p-6 rounded-2xl">

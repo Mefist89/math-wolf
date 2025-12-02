@@ -234,7 +234,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
           <div className="bg-white rounded-2xl shadow-lg p-4 mb-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <img src="wolf1.png" alt="Wolf" className="w-12 h-12 md:w-16 md:h-16" />
+                <img src="/img/wolf1.png" alt="Wolf" className="w-12 h-12 md:w-16 md:h-16" />
                 <div>
                   <h2 className="text-xl font-bold text-purple-70">
                     {levels[currentLevel].name}
@@ -283,7 +283,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
             ))}
 
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-              <img src="wolf1.png" alt="Wolf" className="w-24 h-24 md:w-32 md:h-32" />
+              <img src="/img/wolf1.png" alt="Wolf" className="w-24 h-24 md:w-32 md:h-32" />
             </div>
           </div>
 
@@ -342,7 +342,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
         <div className="bg-white rounded-2xl shadow-lg p-4 mb-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <img src="wolf1.png" alt="Wolf" className="w-12 h-12 md:w-16 md:h-16" />
+              <img src="/img/wolf1.png" alt="Wolf" className="w-12 h-12 md:w-16 md:h-16" />
               <div>
                 <h2 className="text-xl font-bold text-purple-70">
                   {levels[currentLevel].name}

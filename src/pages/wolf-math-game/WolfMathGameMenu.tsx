@@ -25,7 +25,7 @@ const WolfMathGameMenu: React.FC<WolfMathGameMenuProps> = ({ setScreen }) => {
             a Lupului
           </h2>
           
-          <img src="wolf1.png" alt="Wolf" className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-8 animate-bounce" />
+          <img src="/img/wolf1.png" alt="Wolf" className="w-24 h-24 md:w-32 md:h-32 mx-auto mb-8 animate-bounce" />
 
           <div className="space-y-4">
             <button
