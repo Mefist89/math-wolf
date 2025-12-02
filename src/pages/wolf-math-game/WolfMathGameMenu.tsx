@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Play, Map, BookOpen, Users } from 'lucide-react';
 import { useWolfMathGame } from './WolfMathGameState';
 

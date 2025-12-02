@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { WolfMathGameProvider } from './WolfMathGameState';
 import WolfMathGameMenu from './WolfMathGameMenu';
 import WolfMathGameLevels from './WolfMathGameLevels';

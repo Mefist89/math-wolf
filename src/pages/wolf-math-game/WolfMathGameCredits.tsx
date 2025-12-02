@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWolfMathGame } from './WolfMathGameState';
+// Removed unused import
 
 type WolfMathGameCreditsProps = {
   setScreen: React.Dispatch<React.SetStateAction<string>>;

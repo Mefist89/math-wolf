@@ -45,7 +45,8 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
   const initialSpawnRef = useRef(false);
   
   // Memoize the initial spawn state
-  const initialSpawned = initialSpawnRef.current;
+  // Removed unused variable
+  // const initialSpawned = initialSpawnRef.current;
 
   // Effect to generate questions when level or question changes
  useEffect(() => {
@@ -363,7 +364,7 @@ const WolfMathGamePlay: React.FC<WolfMathGamePlayProps> = ({
         <div className="bg-white rounded-full h-4 mb-6 overflow-hidden shadow-inner">
           <div
             className="bg-gradient-to-r from-purple-500 to-pink-500 h-full transition-all duration-500"
-            style={{ width: `${((currentLevel * 3 + currentQuestion) / 15) * 10}%` }}
+            style={{ width: `${((currentLevel * 3 + currentQuestion) / 15) * 100}%` }}
           />
         </div>
 

@@ -152,17 +152,17 @@ export const WolfMathGameProvider = ({ children }: { children: ReactNode }) => {
   ];
 
   const generateOptions = (correct: number | string, min: number, max: number) => {
-    const options = [correct];
-    if (typeof correct === 'number') {
-      while (options.length < 4) {
-        const opt = Math.floor(Math.random() * (max - min + 1)) + min;
-        if (!options.includes(opt)) {
-          options.push(opt);
-        }
-      }
-    } else {
+    if (typeof correct === 'string') {
       // For comparison operations, we have fixed options
       return ["<", ">", "="].sort(() => Math.random() - 0.5);
+    }
+    
+    const options = [correct];
+    while (options.length < 4) {
+      const opt = Math.floor(Math.random() * (max - min + 1)) + min;
+      if (!options.includes(opt)) {
+        options.push(opt);
+      }
     }
     return options.sort(() => Math.random() - 0.5);
   };
@@ -175,7 +175,7 @@ export const WolfMathGameProvider = ({ children }: { children: ReactNode }) => {
       return {
         text: `${a} ___ ${b}`,
         correctAnswer,
-        options: generateOptions(parseInt(correctAnswer), 0, 10),
+        options: generateOptions(correctAnswer, 0, 10),
         isCompare: true
       };
     }
